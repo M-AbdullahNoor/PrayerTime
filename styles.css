@@ -1,0 +1,696 @@
+/* ===================================================
+   NAMAZ TIMETABLE — OPULENT ISLAMIC THEME
+   Fonts: Cinzel (headings) + Amiri (Arabic) + Josefin Sans (body)
+   =================================================== */
+
+:root {
+  --night: #060e09;
+  --bg: #081510;
+  --surface: #0f2218;
+  --surface2: #152d1f;
+  --surface3: #1b3828;
+  --surface4: #203f2e;
+  --border: #264a35;
+  --border2: #2f5a40;
+  --gold: #c9a227;
+  --gold2: #e5c65c;
+  --gold3: #f0d878;
+  --gold-glow: rgba(201,162,39,0.35);
+  --text: #e2ece4;
+  --text2: #b0ccb5;
+  --text3: #7a9d81;
+  --text4: #4d7055;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+  --shadow-card:
+    0 0 0 1px var(--border),
+    0 8px 32px rgba(0,0,0,0.5),
+    0 2px 8px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(201,162,39,0.08);
+  --shadow-gold:
+    0 0 20px rgba(201,162,39,0.2),
+    0 0 60px rgba(201,162,39,0.08);
+  --shadow-btn:
+    0 2px 0 rgba(0,0,0,0.4),
+    0 4px 16px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 17px; }
+
+body {
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  background: var(--night);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.65;
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =====================================================
+   BG LAYER 1 — GEOMETRIC PATTERN
+===================================================== */
+.geo-bg {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.geo-svg {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  animation: patternBreathe 20s ease-in-out infinite alternate;
+}
+@keyframes patternBreathe {
+  0%   { opacity: 0.6; }
+  100% { opacity: 0.85; }
+}
+.geo-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 90% 70% at 50% 30%, transparent 0%, rgba(6,14,9,0.65) 100%);
+}
+
+/* Orbs — static blur, animate only transform (lighter on GPU) */
+.orb {
+  position: absolute; border-radius: 50%; filter: blur(60px);
+  animation: orbDrift ease-in-out infinite alternate;
+}
+.orb-1 {
+  width: 450px; height: 450px; top: -100px; left: -100px;
+  background: radial-gradient(circle, rgba(30,90,50,0.22) 0%, transparent 70%);
+  animation-duration: 25s;
+}
+.orb-2 {
+  width: 380px; height: 380px; top: 25%; right: -80px;
+  background: radial-gradient(circle, rgba(201,162,39,0.07) 0%, transparent 70%);
+  animation-duration: 32s; animation-delay: -10s;
+}
+.orb-3 {
+  width: 320px; height: 320px; bottom: 5%; left: 15%;
+  background: radial-gradient(circle, rgba(20,70,40,0.18) 0%, transparent 70%);
+  animation-duration: 28s; animation-delay: -16s;
+}
+.orb-4 {
+  width: 250px; height: 250px; top: 55%; left: 60%;
+  background: radial-gradient(circle, rgba(201,162,39,0.05) 0%, transparent 70%);
+  animation-duration: 36s; animation-delay: -5s;
+}
+@keyframes orbDrift {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(20px,-15px) scale(1.02); }
+}
+
+/* =====================================================
+   BG LAYER 2 — AURORA LIGHT BEAMS
+===================================================== */
+.aurora-layer {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.aurora {
+  position: absolute; border-radius: 50%;
+  filter: blur(50px); opacity: 0.5;
+  animation: auroraFlow ease-in-out infinite;
+}
+.aurora-1 {
+  width: 750px; height: 280px; top: 3%; left: -150px;
+  background: linear-gradient(90deg, rgba(20,80,40,0) 0%, rgba(30,110,55,0.10) 30%, rgba(40,140,65,0.16) 50%, rgba(30,110,55,0.10) 70%, rgba(20,80,40,0) 100%);
+  animation-duration: 24s; animation-delay: 0s;
+}
+.aurora-2 {
+  width: 640px; height: 220px; top: 12%; right: -100px;
+  background: linear-gradient(90deg, rgba(201,162,39,0) 0%, rgba(201,162,39,0.03) 30%, rgba(230,190,60,0.07) 50%, rgba(201,162,39,0.03) 70%, rgba(201,162,39,0) 100%);
+  animation-duration: 30s; animation-delay: -9s;
+}
+.aurora-3 {
+  width: 560px; height: 200px; bottom: 18%; left: 5%;
+  background: linear-gradient(90deg, rgba(15,60,30,0) 0%, rgba(25,90,45,0.09) 40%, rgba(35,120,60,0.13) 50%, rgba(25,90,45,0.09) 60%, rgba(15,60,30,0) 100%);
+  animation-duration: 27s; animation-delay: -15s;
+}
+@keyframes auroraFlow {
+  0%   { opacity: 0.35; transform: translateX(0) translateY(0); }
+  100% { opacity: 0.7;  transform: translateX(30px) translateY(-10px); }
+}
+
+/* =====================================================
+   BG LAYER 3 — ROTATING MANDALAS
+===================================================== */
+.mandala-layer {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.mandala { position: absolute; }
+
+.mandala-tr {
+  width: 440px; height: 440px; top: -90px; right: -90px;
+  animation: mandalaSpin 120s linear infinite;
+}
+.mandala-bl {
+  width: 310px; height: 310px; bottom: -65px; left: -65px;
+  animation: mandalaSpin 95s linear infinite reverse;
+}
+.mandala-ml {
+  width: 190px; height: 190px; top: 38%; left: -45px; opacity: 0.35;
+  animation: mandalaSpin 70s linear infinite;
+}
+@keyframes mandalaSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.mandala-ring-1 { animation: mandalaSpin 80s linear infinite reverse; transform-origin: 200px 200px; }
+.mandala-ring-2 { animation: mandalaSpin 60s linear infinite; transform-origin: 200px 200px; }
+.mandala-ring-3 { animation: mandalaSpin 45s linear infinite reverse; transform-origin: 200px 200px; }
+.mandala-bl-ring1 { animation: mandalaSpin 65s linear infinite reverse; transform-origin: 140px 140px; }
+.mandala-bl-ring2 { animation: mandalaSpin 50s linear infinite; transform-origin: 140px 140px; }
+.mandala-ml-spin  { animation: mandalaSpin 38s linear infinite reverse; transform-origin: 80px 80px; }
+
+/* =====================================================
+   BG LAYER 4 — CRESCENT MOON
+===================================================== */
+.crescent-deco {
+  position: fixed; top: 18px; right: 50px;
+  width: 175px; height: 175px;
+  pointer-events: none; z-index: 0;
+  animation: crescentFloat 18s ease-in-out infinite alternate;
+}
+.moon-star {
+  position: absolute; top: 28px; right: 16px;
+  font-size: 0.65rem; color: rgba(201,162,39,0.75);
+  animation: moonStarTwinkle 4s ease-in-out infinite alternate;
+}
+@keyframes crescentFloat {
+  0%   { transform: translateY(0) rotate(-5deg); }
+  100% { transform: translateY(-12px) rotate(5deg); }
+}
+@keyframes moonStarTwinkle {
+  0%   { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* =====================================================
+   BG LAYER 5 — SHOOTING STARS CANVAS
+===================================================== */
+.shooting-canvas {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0;
+  width: 100%; height: 100%;
+}
+
+/* =====================================================
+   BG LAYER 6 — RISING DUST
+===================================================== */
+.dust-layer {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.dust-particle {
+  position: absolute; border-radius: 50%;
+  background: rgba(201,162,39,0.55);
+  animation: dustRise ease-in infinite;
+}
+@keyframes dustRise {
+  0%   { transform: translateY(0); opacity: 0; }
+  10%  { opacity: 0.6; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}
+
+/* =====================================================
+   BG LAYER 7 — TWINKLING STARS
+===================================================== */
+.stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+
+.star {
+  position: absolute; background: white; border-radius: 50%;
+  animation: twinkle ease-in-out infinite alternate;
+}
+.star-spark {
+  background: transparent; border-radius: 0;
+  width: 4px !important; height: 4px !important;
+  box-shadow: 0 0 2px 1px rgba(230,200,100,0.6);
+  animation: sparkTwinkle ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  0%   { opacity: 0.15; }
+  100% { opacity: 0.6; }
+}
+@keyframes sparkTwinkle {
+  0%   { opacity: 0.2; }
+  100% { opacity: 0.85; }
+}
+
+/* =====================================================
+   SHARED BORDER SWEEP ANIMATION
+===================================================== */
+@keyframes borderSweep {
+  0%   { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* =====================================================
+   APP WRAPPER
+===================================================== */
+#app {
+  position: relative; z-index: 1;
+  max-width: 780px; margin: 0 auto;
+  padding: 0 1.5rem 3rem; min-height: 100vh;
+  animation: appEnter 0.9s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes appEnter {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Ornaments */
+.ornament-top, .ornament-bottom { width: 100%; height: 30px; margin: 0; overflow: visible; }
+.ornament-top { margin-bottom: -10px; }
+.ornament-bottom { margin-top: 2rem; opacity: 0.7; }
+
+/* =====================================================
+   HEADER
+===================================================== */
+.header { padding: 2rem 0 1.5rem; position: relative; }
+.header-inner { text-align: center; margin-bottom: 1.75rem; }
+
+.bismillah {
+  font-family: 'Amiri', serif;
+  font-size: 1.75rem; color: var(--gold);
+  letter-spacing: 0.05em; margin-bottom: 0.75rem;
+  text-shadow: 0 0 30px var(--gold-glow);
+  animation: goldPulse 8s ease-in-out infinite alternate;
+  font-weight: 700;
+}
+@keyframes goldPulse {
+  0%   { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.header h1 {
+  margin: 0 0 0.4rem;
+  font-family: 'Philosopher', serif;
+  font-size: clamp(1.9rem, 5vw, 2.8rem); font-weight: 700;
+  letter-spacing: 0.04em;
+  background: linear-gradient(180deg, #f0e8c0 0%, var(--gold2) 40%, var(--gold) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+.current-date {
+  margin: 0; color: var(--text3);
+  font-size: 0.95rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+
+.actions-top { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.section-divider { width: 100%; height: 20px; margin-bottom: 1.75rem; }
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+.btn {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.8rem 1.8rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border: none; border-radius: var(--radius);
+  cursor: pointer; overflow: hidden;
+  transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.28s ease, filter 0.25s ease;
+  outline: none; -webkit-tap-highlight-color: transparent;
+}
+.btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.btn-primary {
+  background: linear-gradient(145deg, var(--gold3) 0%, var(--gold2) 30%, var(--gold) 65%, #a8841f 100%);
+  color: #0a1c0e;
+  box-shadow: var(--shadow-btn), 0 0 0 1px rgba(201,162,39,0.4);
+}
+.btn-primary:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: var(--shadow-btn), var(--shadow-gold), 0 0 0 1px rgba(201,162,39,0.65);
+  animation: none; filter: brightness(1.1);
+}
+.btn-primary:active {
+  transform: translateY(2px) scale(0.97);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4), inset 0 2px 6px rgba(0,0,0,0.25);
+  filter: brightness(0.95);
+}
+
+.btn-nav {
+  background: linear-gradient(145deg, var(--surface3) 0%, var(--surface2) 100%);
+  color: var(--text2); box-shadow: var(--shadow-card);
+  width: 48px; height: 48px; padding: 0;
+  justify-content: center; font-size: 1.4rem;
+  border-radius: 50%; flex-shrink: 0;
+  letter-spacing: 0; text-transform: none;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease, color 0.25s ease;
+}
+.btn-nav:hover {
+  background: linear-gradient(145deg, var(--surface4) 0%, var(--surface3) 100%);
+  color: var(--gold2); transform: translateY(-3px) scale(1.08);
+  box-shadow: var(--shadow-card), var(--shadow-gold);
+}
+.btn-nav:active { transform: scale(0.9); }
+
+.btn-icon { font-size: 0.75rem; opacity: 0.7; transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease; }
+.btn-primary:hover .btn-icon { transform: rotate(90deg) scale(1.2); opacity: 1; }
+
+.btn-ripple {
+  position: absolute; inset: 0; border-radius: inherit;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.45) 0%, transparent 70%);
+  transform: scale(0); opacity: 0; pointer-events: none;
+}
+.btn:active .btn-ripple { animation: rippleEffect 0.55s ease-out forwards; }
+@keyframes rippleEffect {
+  0%   { transform: scale(0);   opacity: 0.6; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+.btn.hidden { display: none; }
+
+/* =====================================================
+   LOADING
+===================================================== */
+.loading {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 1.25rem; padding: 3rem; color: var(--text3);
+}
+.loading.hidden { display: none; }
+.loading-inner { position: relative; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; }
+.loader-ring {
+  position: absolute; inset: 0;
+  border: 2px solid transparent; border-top-color: var(--gold);
+  border-radius: 50%; animation: spin 1.2s linear infinite;
+}
+.loader-ring-2 {
+  inset: 8px; border-top-color: transparent; border-bottom-color: var(--gold2);
+  animation-duration: 0.75s; animation-direction: reverse; opacity: 0.6;
+}
+.loader-star { font-size: 1.1rem; color: var(--gold2); animation: starPulseLoad 1.2s ease-in-out infinite alternate; }
+@keyframes starPulseLoad {
+  0%   { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+  100% { opacity: 1;   transform: scale(1.2) rotate(180deg); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { margin: 0; font-size: 0.9rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text4); font-weight: 700; }
+
+/* Error / no data */
+.error {
+  padding: 1rem 1.5rem; background: rgba(61,31,31,0.85); color: #f88585;
+  border-radius: var(--radius); border: 1px solid rgba(248,81,73,0.3);
+  margin-bottom: 1.25rem; font-size: 0.9rem; letter-spacing: 0.02em;
+}
+.error.hidden { display: none; }
+.no-data {
+  padding: 2rem; text-align: center; color: var(--text3);
+  background: var(--surface); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card); letter-spacing: 0.05em; font-size: 0.9rem;
+}
+.no-data.hidden { display: none; }
+
+.view { margin-bottom: 2rem; }
+.view.hidden { display: none; }
+
+/* =====================================================
+   COUNTDOWN SECTION
+===================================================== */
+.countdown-section {
+  position: relative; border-radius: var(--radius-xl);
+  padding: 2.25rem 2rem 2rem; margin-bottom: 1.75rem;
+  text-align: center;
+  background: linear-gradient(145deg, var(--surface3) 0%, var(--surface2) 50%, var(--surface) 100%);
+  box-shadow: var(--shadow-card); overflow: hidden;
+  animation: cardReveal 0.6s cubic-bezier(0.22,1,0.36,1) both;
+}
+.countdown-section::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,162,39,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(30,107,58,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+/* Animated sweep border */
+.countdown-section::after {
+  content: ''; position: absolute;
+  top: 0; left: -100%; right: auto; width: 200%; height: 1.5px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold2) 40%, var(--gold3) 50%, var(--gold2) 60%, transparent 100%);
+  animation: borderSweep 8s ease-in-out infinite; opacity: 0.7;
+}
+.countdown-section.hidden { display: none; }
+
+.countdown-glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(201,162,39,0.07) 0%, transparent 70%);
+  pointer-events: none;
+  animation: glowPulse 6s ease-in-out infinite alternate;
+}
+@keyframes glowPulse {
+  0%   { transform: translate(-50%,-50%) scale(1);   opacity: 0.5; }
+  100% { transform: translate(-50%,-50%) scale(1.2); opacity: 0.9; }
+}
+
+.countdown-label {
+  margin: 0 0 0.5rem;
+  font-size: 0.78rem; color: var(--gold);
+  text-transform: uppercase; letter-spacing: 0.28em; font-weight: 800;
+  animation: labelFloat 8s ease-in-out infinite alternate;
+}
+@keyframes labelFloat {
+  0%   { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.countdown-prayer {
+  margin: 0 0 1.1rem;
+  font-family: 'Philosopher', serif;
+  font-size: clamp(2.1rem,5vw,3rem); font-weight: 700; letter-spacing: 0.03em;
+  background: linear-gradient(180deg, #f0e8c0 0%, var(--gold2) 50%, var(--gold) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: prayerNamePop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes prayerNamePop {
+  from { opacity: 0; transform: scale(0.8) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.countdown-timer-wrap {
+  display: inline-block; padding: 0.55rem 2.2rem;
+  background: rgba(0,0,0,0.28); border-radius: 999px;
+  border: 1px solid rgba(201,162,39,0.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 0 24px rgba(201,162,39,0.1);
+  animation: timerPulse 4s ease-in-out infinite alternate;
+}
+@keyframes timerPulse {
+  0%   { opacity: 0.9; }
+  100% { opacity: 1; }
+}
+
+.countdown-digits {
+  font-family: 'Philosopher', serif;
+  font-size: clamp(1.4rem,4vw,2.1rem);
+  font-variant-numeric: tabular-nums;
+  color: var(--gold3); letter-spacing: 0.06em; font-weight: 700;
+  text-shadow: 0 0 24px rgba(201,162,39,0.55);
+}
+
+/* =====================================================
+   TODAY CARD
+===================================================== */
+.card {
+  position: relative;
+  background: linear-gradient(155deg, var(--surface3) 0%, var(--surface2) 60%, var(--surface) 100%);
+  border-radius: var(--radius-xl); box-shadow: var(--shadow-card);
+  overflow: hidden;
+  animation: cardReveal 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s both;
+}
+.card::before {
+  content: ''; position: absolute;
+  top: 0; left: -100%; right: auto; width: 200%; height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 35%, var(--gold2) 50%, var(--gold) 65%, transparent 100%);
+  animation: borderSweep 10s ease-in-out infinite; animation-delay: 1s; opacity: 0.55;
+}
+.card::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,162,39,0.18), transparent);
+}
+.card-inner-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 40% at 50% 0%, rgba(201,162,39,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.card-header-ornament { padding: 1.25rem 1.5rem 0.6rem; }
+.card.hidden { display: none; }
+
+/* Prayer table */
+.prayer-table { width: 100%; border-collapse: collapse; }
+.prayer-table tbody tr {
+  border-bottom: 1px solid rgba(38,74,53,0.5);
+  transition: background 0.28s ease, transform 0.22s ease;
+  animation: rowReveal 0.55s cubic-bezier(0.22,1,0.36,1) both;
+}
+.prayer-table tbody tr:last-child { border-bottom: none; }
+@keyframes rowReveal {
+  from { opacity: 0; transform: translateX(-14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.prayer-table tbody tr:hover { background: rgba(32,63,46,0.65); transform: translateX(5px); }
+.prayer-table tbody tr:hover td { color: var(--gold3); }
+.prayer-table th, .prayer-table td { padding: 1.1rem 1.5rem; }
+.prayer-table th {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text3); width: 50%;
+}
+.prayer-table th::before {
+  content: '◆'; margin-right: 0.5rem;
+  font-size: 0.55rem; color: var(--gold); opacity: 0.5; vertical-align: middle;
+}
+.prayer-table td {
+  font-variant-numeric: tabular-nums;
+  font-size: 1.1rem; font-weight: 800;
+  color: var(--text2); letter-spacing: 0.02em;
+  text-align: right; transition: color 0.25s ease;
+}
+
+/* =====================================================
+   MONTHLY VIEW
+===================================================== */
+.monthly-controls {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.5rem;
+}
+.month-title {
+  margin: 0; font-family: 'Philosopher', serif;
+  font-size: clamp(1.25rem,3.5vw,1.65rem); font-weight: 700;
+  letter-spacing: 0.04em; flex: 1; text-align: center;
+  background: linear-gradient(180deg, var(--text) 0%, var(--gold2) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.table-wrapper {
+  overflow-x: auto;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  max-height: 70vh;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(155deg, var(--surface3) 0%, var(--surface2) 60%, var(--surface) 100%);
+  box-shadow: var(--shadow-card); position: relative;
+  animation: cardReveal 0.6s cubic-bezier(0.22,1,0.36,1) both;
+}
+.table-wrapper::before {
+  content: ''; position: absolute;
+  top: 0; left: -100%; right: auto; width: 200%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--gold2), var(--gold), transparent);
+  animation: borderSweep 9s ease-in-out infinite; opacity: 0.5; z-index: 1;
+}
+.month-table { width: 100%; min-width: 600px; border-collapse: collapse; }
+.month-table th, .month-table td {
+  padding: 0.75rem 1.05rem; text-align: left;
+  border-bottom: 1px solid rgba(38,74,53,0.4); white-space: nowrap;
+}
+.month-table th {
+  background: rgba(12,28,19,0.97);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--gold);
+  position: sticky; top: 0; z-index: 1;
+  border-bottom: 1px solid rgba(201,162,39,0.25);
+}
+.month-table td { font-variant-numeric: tabular-nums; font-size: 1rem; font-weight: 700; color: var(--text2); transition: color 0.2s ease; }
+.month-table td:first-child { color: var(--text3); font-weight: 800; letter-spacing: 0.03em; font-size: 0.92rem; }
+.month-table tbody tr { transition: background 0.22s ease; }
+.month-table tbody tr:hover { background: rgba(27,56,40,0.7); }
+.month-table tbody tr:hover td { color: var(--gold2); }
+.month-table tbody tr:hover td:first-child { color: var(--gold3); }
+
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* =====================================================
+   TODAY ROW STAGGER
+===================================================== */
+.prayer-table tbody tr:nth-child(1) { animation-delay: 0.05s; }
+.prayer-table tbody tr:nth-child(2) { animation-delay: 0.11s; }
+.prayer-table tbody tr:nth-child(3) { animation-delay: 0.17s; }
+.prayer-table tbody tr:nth-child(4) { animation-delay: 0.23s; }
+.prayer-table tbody tr:nth-child(5) { animation-delay: 0.29s; }
+.prayer-table tbody tr:nth-child(6) { animation-delay: 0.35s; }
+.prayer-table tbody tr:nth-child(7) { animation-delay: 0.41s; }
+
+/* Next/past row highlight */
+.prayer-table tbody tr.row-next { background: rgba(201,162,39,0.065); border-color: rgba(201,162,39,0.2); }
+.prayer-table tbody tr.row-next th { color: var(--gold2); }
+.prayer-table tbody tr.row-next td { color: var(--gold3); text-shadow: 0 0 14px rgba(201,162,39,0.45); }
+.prayer-table tbody tr.row-past th,
+.prayer-table tbody tr.row-past td { opacity: 0.42; }
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 600px) {
+  #app { padding: 0 1rem 2rem; }
+  .bismillah { font-size: 1.45rem; }
+  .actions-top { flex-direction: column; align-items: center; }
+  .btn-primary { width: 100%; max-width: 300px; justify-content: center; }
+  .countdown-section { padding: 1.5rem 1.25rem 1.5rem; }
+  .prayer-table th, .prayer-table td { padding: 0.95rem 1.1rem; }
+  .prayer-table th { font-size: 0.88rem; }
+  .prayer-table td { font-size: 1.05rem; }
+  .monthly-controls { flex-wrap: nowrap; }
+  .table-wrapper { max-height: 60vh; }
+  .crescent-deco { width: 110px; height: 110px; top: 12px; right: 8px; opacity: 0.6; }
+  .mandala-tr { width: 260px; height: 260px; top: -50px; right: -50px; }
+  .mandala-bl { width: 200px; height: 200px; bottom: -40px; left: -40px; }
+  .mandala-ml { display: none; }
+}
+
+/* =====================================================
+   MOBILE — REDUCE ANIMATIONS FOR PERFORMANCE
+===================================================== */
+@media (max-width: 768px) {
+  /* Background: no animated blur or motion */
+  .geo-svg { animation: none; opacity: 0.7; }
+  .orb { animation: none; filter: blur(40px); }
+  .aurora { animation: none; opacity: 0.4; }
+  .mandala,
+  .mandala-tr,
+  .mandala-bl,
+  .mandala-ml,
+  .mandala-ring-1,
+  .mandala-ring-2,
+  .mandala-ring-3,
+  .mandala-bl-ring1,
+  .mandala-bl-ring2,
+  .mandala-ml-spin { animation: none !important; }
+  .crescent-deco { animation: none; }
+  .moon-star { animation: none; }
+  /* Dust and stars: static */
+  .dust-particle { animation: none; opacity: 0.12; }
+  .star,
+  .star-spark { animation: none; opacity: 0.4; }
+  /* Hide shooting stars canvas (JS also stops loop) */
+  .shooting-canvas { display: none !important; }
+  /* Table wrapper: no border sweep animation */
+  .table-wrapper::before { animation: none; opacity: 0.3; }
+  /* Header/card/countdown: minimal motion */
+  .bismillah { animation: none !important; }
+  .header h1 { animation: none !important; }
+  #app { animation-duration: 0.3s; }
+  .card-inner-glow,
+  .countdown-glow { animation: none !important; }
+  .countdown-label,
+  .countdown-prayer,
+  .countdown-digits { animation: none !important; }
+  .prayer-table tbody tr { animation: none !important; }
+}
